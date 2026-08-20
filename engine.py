@@ -38,10 +38,10 @@ def _to_gnubg_board(
     board = [[0] * 25 for _ in range(2)]
 
     for point, count in white_points.items():
-        board[0][int(point)] = int(count)
+        board[0][24-int(point)] = int(count)
 
     for point, count in black_points.items():
-        board[1][int(point)] = int(count)
+        board[1][24-int(point)] = int(count)
 
     board[0][0] = int(white_bar)
     board[1][0] = int(black_bar)
