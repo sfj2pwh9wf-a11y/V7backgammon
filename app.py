@@ -51,8 +51,8 @@ with st.expander("Detected board", expanded=True):
         st.error("Black reconstruction is impossible: more than 15 checkers.")
 
     st.caption(
-        "Point numbering is fixed to the Adikus layout: top-right = 1, "
-        "top-left = 12, bottom-left = 13, bottom-right = 24."
+        "Point numbering is fixed to the Adikus layout: top-right = 24, "
+        "top-left = 13, bottom-left = 12, bottom-right = 12."
     )
 
     st.image(
