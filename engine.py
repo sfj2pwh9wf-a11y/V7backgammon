@@ -33,18 +33,44 @@ def _to_gnubg_board(
     white_bar: int,
     black_bar: int,
 ):
-    # GNUBG uses a 2x25 board. The first side is X, the second is O.
-    # Index 0 is the bar; points 1..24 are the board.
+    """
+    Convert our Adikus point numbering into GNU Backgammon's
+    internal 2x25 TanBoard representation.
+
+    Our app uses the standard visible numbering:
+
+        TOP:     13 14 15 16 17 18 | 19 20 21 22 23 24
+        BOTTOM:  12 11 10  9  8  7 |  6  5  4  3  2  1
+
+    White is GNU's X side and moves toward point 1.
+    Black is GNU's O side and moves toward point 24.
+
+    GNU's internal representation is:
+        board[1][point - 1] = X checker on point
+        board[0][24 - point] = O checker on point
+
+    Index 24 is the bar:
+        board[1][24] = X bar
+        board[0][24] = O bar
+    """
+
     board = [[0] * 25 for _ in range(2)]
 
+    # White = GNU X.
     for point, count in white_points.items():
-        board[0][24-int(point)] = int(count)
+        p = int(point)
+        board[1][p - 1] = int(count)
 
+    # Black = GNU O.
+    # O's internal point indexing runs in the opposite direction.
     for point, count in black_points.items():
-        board[1][24-int(point)] = int(count)
+        p = int(point)
+        board[0][24 - p] = int(count)
 
-    board[0][0] = int(white_bar)
-    board[1][0] = int(black_bar)
+    # Bar positions.
+    board[1][24] = int(white_bar)
+    board[0][24] = int(black_bar)
+
 
     return board
 
